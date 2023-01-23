@@ -21,18 +21,18 @@ namespace SphereWarrior
         
         private void CreateProjectile()
         {
-            // TODO implement projectile creation
+            _currentProjectile = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            _currentProjectile.AddComponent<Projectile>();
         }
 
         private void ReleaseProjectile()
         {
-            // TODO implement projectile releasing
+            _currentProjectile = null;
         }
 
         private void Decrease(float size)
         {
             _size -= size;
-
             transform.localScale = new Vector3(_size, _size, _size);
             
             // TODO add check if curr size == minimum size
