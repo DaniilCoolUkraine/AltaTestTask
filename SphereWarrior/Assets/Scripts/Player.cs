@@ -7,7 +7,9 @@ namespace SphereWarrior
     {
         [SerializeField] private float _minimumSize;
         [SerializeField] private Transform _projectileSpawnPosition;
-        
+
+        [SerializeField] private float _projectileSpeed;
+
         private float _size;
 
         private GameObject _currentProjectile;
@@ -24,8 +26,11 @@ namespace SphereWarrior
         private void CreateProjectile()
         {
             _currentProjectile = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            
             _currentProjectile.transform.position = _projectileSpawnPosition.position;
+            
             _currentProjectile.AddComponent<Projectile>();
+            _currentProjectile.GetComponent<Projectile>().SetComponents(new LinearCalculator(), _projectileSpeed);
         }
 
         private void ReleaseProjectile()

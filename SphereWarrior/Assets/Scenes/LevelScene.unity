@@ -147,7 +147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 365093823}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -312,6 +312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minimumSize: 1
   _projectileSpawnPosition: {fileID: 365093824}
+  _projectileSpeed: 5
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,7 +442,7 @@ Camera:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -482,8 +483,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -0.08024036, y: 0.9147748, z: -0.22561605, w: -0.32533976}
-  m_LocalPosition: {x: 22.9611, y: 20.840672, z: 27.970392}
+  m_LocalRotation: {x: -0.18833412, y: 0.32915163, z: -0.067170985, w: -0.92286384}
+  m_LocalPosition: {x: 17.602451, y: 20.921028, z: -12.484632}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -522,6 +523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73bf6ab55b2347b6b6a2fd87ea2ba314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _infectedColor: {r: 0.9056604, g: 0.41018206, b: 0, a: 0}
   _explosionParticles: {fileID: 0}
 --- !u!65 &1060354747
 BoxCollider:

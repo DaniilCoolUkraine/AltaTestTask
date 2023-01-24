@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace SphereWarrior
@@ -8,7 +7,12 @@ namespace SphereWarrior
     {
         private float _size;
 
+        private float _speed;
+
         private List<IInfectable> _obstacles;
+        
+        private ICalculateArea _calculateAreaFormula;
+        private float _findRadius;
 
         private void Start()
         {
@@ -16,19 +20,22 @@ namespace SphereWarrior
             
             TapManager.OnTapHold += Increase;
             TapManager.OnTapReleased += SetVelocity;
-
-            SetComponents();
         }
-
-        private void SetComponents()
+        
+        public void SetComponents(ICalculateArea calculator, float speed)
         {
             gameObject.AddComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+
+            _calculateAreaFormula = calculator;
+            _speed = speed;
         }
         
         private void Increase(float size)
         {
             _size += size;
             transform.localScale = new Vector3(_size, _size, _size);
+            
+            _findRadius = _calculateAreaFormula.CalculateArea(_size);
         }
 
         private void SetVelocity()
@@ -36,13 +43,13 @@ namespace SphereWarrior
             var _rb = GetComponent<Rigidbody>();
             
             _rb.constraints = RigidbodyConstraints.FreezePositionY;
-            _rb.velocity = Vector3.forward;
+            _rb.velocity = Vector3.forward * _speed;
             
             TapManager.OnTapHold -= Increase;
             TapManager.OnTapReleased -= SetVelocity;
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnCollisionEnter()
         {
             FindInfectableObjects();
             InfectAll();
@@ -51,7 +58,7 @@ namespace SphereWarrior
 
         private void FindInfectableObjects()
         {
-            RaycastHit[] obstacles = Physics.SphereCastAll(transform.position, _size, transform.forward);
+            RaycastHit[] obstacles = Physics.SphereCastAll(transform.position, _findRadius, transform.forward);
             foreach (RaycastHit obstacle in obstacles)
             {
                 var infectableObject = obstacle.collider.gameObject.GetComponent<IInfectable>();
@@ -62,7 +69,7 @@ namespace SphereWarrior
 
         private void OnDrawGizmos()
         {
-            Gizmos.DrawWireSphere(transform.position, _size);
+            Gizmos.DrawWireSphere(transform.position, _findRadius);
         }
 
         private void InfectAll()
@@ -72,6 +79,5 @@ namespace SphereWarrior
                 obstacle.Infect();
             }
         }
-        
     }
 }
