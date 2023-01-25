@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using SphereWarrior.Managers;
 using SphereWarrior.Infectable;
@@ -15,6 +16,13 @@ namespace SphereWarrior
         
         private ICalculateArea _calculateAreaFormula;
         private float _findRadius;
+
+        private static GameObject _player;
+
+        private void Awake()
+        {
+            _player = GameObject.FindWithTag("Player");
+        }
 
         private void Start()
         {
@@ -55,6 +63,12 @@ namespace SphereWarrior
         {
             FindInfectableObjects();
             InfectAll();
+            
+            TapManager.OnTapHold -= Increase;
+            TapManager.OnTapReleased -= SetVelocity;
+            
+            _player.GetComponent<Player>().CheckPath(_player.transform);
+            
             Destroy(gameObject);
         }
 

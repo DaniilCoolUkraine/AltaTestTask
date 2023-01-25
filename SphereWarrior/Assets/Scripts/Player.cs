@@ -15,6 +15,13 @@ namespace SphereWarrior
 
         private GameObject _currentProjectile;
 
+        private GamePhaseManager _gamePhaseManager;
+
+        private void Awake()
+        {
+            _gamePhaseManager = GameObject.FindWithTag("GamePhaseManager").GetComponent<GamePhaseManager>();
+        }
+
         private void Start()
         {
             TapManager.OnTap += CreateProjectile;
@@ -46,14 +53,21 @@ namespace SphereWarrior
             
             if (_size <= _minimumSize)
             {
-                EndGame();
+                ReleaseProjectile();
+                _gamePhaseManager.EndGame(EGamePhase.Loose);
             }
         }
-
-        private void EndGame()
+        
+        public void CheckPath(Transform characteristics)
         {
-            // TODO implement end game
-            
+            if (Physics.BoxCast(characteristics.position, characteristics.localScale, Vector3.forward, out RaycastHit hitObject))
+            {
+                if (hitObject.collider.gameObject.CompareTag("Finish"))
+                {
+                    _gamePhaseManager.EndGame(EGamePhase.Win);
+                }
+            }
         }
+        
     }
 }
