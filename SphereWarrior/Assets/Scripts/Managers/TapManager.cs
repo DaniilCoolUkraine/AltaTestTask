@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace SphereWarrior
+namespace SphereWarrior.Managers
 {
     public class TapManager : MonoBehaviour
     {

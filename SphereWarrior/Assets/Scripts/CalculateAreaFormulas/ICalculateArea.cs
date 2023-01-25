@@ -1,4 +1,4 @@
-﻿namespace SphereWarrior
+﻿namespace SphereWarrior.CalculateAreaFormulas
 {
     public interface ICalculateArea
     {

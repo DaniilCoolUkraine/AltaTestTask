@@ -1,4 +1,4 @@
-﻿namespace SphereWarrior
+﻿namespace SphereWarrior.Infectable
 {
     public interface IInfectable
     {

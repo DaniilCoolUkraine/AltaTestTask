@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SphereWarrior
+namespace SphereWarrior.Infectable
 {
     public class Obstacle : MonoBehaviour, IInfectable
     {
@@ -10,7 +10,12 @@ namespace SphereWarrior
         public void Infect()
         {
             GetComponent<Renderer>().material.SetColor("_Color", _infectedColor);
-            //Destroy(gameObject, _explosionParticles.time);
+            
+            var _particles = Instantiate(_explosionParticles, transform.position, Quaternion.identity);
+            _particles.Play();
+            
+            Destroy(_particles.gameObject, _explosionParticles.duration);
+            Destroy(gameObject, _explosionParticles.duration);
         }
         
     }

@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using SphereWarrior.Managers;
+using SphereWarrior.Infectable;
+using SphereWarrior.CalculateAreaFormulas;
 
 namespace SphereWarrior
 {
     public class Projectile : MonoBehaviour
     {
         private float _size;
-
         private float _speed;
 
         private List<IInfectable> _obstacles;
@@ -58,7 +60,7 @@ namespace SphereWarrior
 
         private void FindInfectableObjects()
         {
-            RaycastHit[] obstacles = Physics.SphereCastAll(transform.position, _findRadius, transform.forward);
+            RaycastHit[] obstacles = Physics.SphereCastAll(transform.position, _findRadius, Vector3.one);
             foreach (RaycastHit obstacle in obstacles)
             {
                 var infectableObject = obstacle.collider.gameObject.GetComponent<IInfectable>();

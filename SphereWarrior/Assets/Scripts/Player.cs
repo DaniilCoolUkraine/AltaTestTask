@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using SphereWarrior.Managers;
+using SphereWarrior.CalculateAreaFormulas;
 
 namespace SphereWarrior
 {
@@ -7,7 +9,6 @@ namespace SphereWarrior
     {
         [SerializeField] private float _minimumSize;
         [SerializeField] private Transform _projectileSpawnPosition;
-
         [SerializeField] private float _projectileSpeed;
 
         private float _size;
@@ -30,7 +31,7 @@ namespace SphereWarrior
             _currentProjectile.transform.position = _projectileSpawnPosition.position;
             
             _currentProjectile.AddComponent<Projectile>();
-            _currentProjectile.GetComponent<Projectile>().SetComponents(new LinearCalculator(), _projectileSpeed);
+            _currentProjectile.GetComponent<Projectile>().SetComponents(new SquareCalculator(), _projectileSpeed);
         }
 
         private void ReleaseProjectile()
@@ -43,7 +44,7 @@ namespace SphereWarrior
             _size -= size;
             transform.localScale = new Vector3(_size, _size, _size);
             
-            if (_size - _minimumSize < 0)
+            if (_size <= _minimumSize)
             {
                 EndGame();
             }
@@ -52,7 +53,7 @@ namespace SphereWarrior
         private void EndGame()
         {
             // TODO implement end game
-            throw new NotImplementedException();
+            
         }
     }
 }
