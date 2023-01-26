@@ -28,6 +28,8 @@ namespace SphereWarrior
         {
             _obstacles = new List<IInfectable>();
             
+            transform.localScale = new Vector3(_size, _size, _size);
+            
             TapManager.OnTapHold += Increase;
             TapManager.OnTapReleased += SetVelocity;
         }
