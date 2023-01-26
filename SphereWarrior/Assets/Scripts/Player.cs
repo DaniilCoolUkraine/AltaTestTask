@@ -60,7 +60,7 @@ namespace SphereWarrior
         
         public void CheckPath(Transform characteristics)
         {
-            if (Physics.BoxCast(characteristics.position, characteristics.localScale, Vector3.forward, out RaycastHit hitObject))
+            if (Physics.BoxCast(characteristics.position, characteristics.localScale, Vector3.forward, out RaycastHit hitObject, Quaternion.identity, Mathf.Infinity))
             {
                 if (hitObject.collider.gameObject.CompareTag("Finish"))
                 {
