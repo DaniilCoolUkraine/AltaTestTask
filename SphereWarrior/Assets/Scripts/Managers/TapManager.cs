@@ -10,7 +10,7 @@ namespace SphereWarrior.Managers
         public static event Action OnTap;
         public static event Action OnTapReleased;
         public static event Action<float> OnTapHold;
-
+        
         private void Update()
         {
             if (Input.touchCount > 0)
@@ -26,6 +26,13 @@ namespace SphereWarrior.Managers
                 if (touch.phase == TouchPhase.Stationary)
                     OnTapHold?.Invoke(_sizePerFrame);
             }
+        }
+
+        private void OnDisable()
+        {
+            OnTap = null;
+            OnTapReleased = null;
+            OnTapHold = null;
         }
     }
 }
