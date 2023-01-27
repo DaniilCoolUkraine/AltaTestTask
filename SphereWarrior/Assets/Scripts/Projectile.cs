@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using SphereWarrior.Managers;
 using SphereWarrior.Infectable;
@@ -17,11 +16,12 @@ namespace SphereWarrior
         private ICalculateArea _calculateAreaFormula;
         private float _findRadius;
 
-        private static GameObject _player;
+        private static Player _player;
 
         private void Awake()
         {
-            _player = GameObject.FindWithTag("Player");
+            if (_player == null)
+                _player = GameObject.FindWithTag("Player").GetComponent<Player>();
         }
 
         private void Start()
@@ -69,7 +69,7 @@ namespace SphereWarrior
             TapManager.OnTapHold -= Increase;
             TapManager.OnTapReleased -= SetVelocity;
             
-            _player.GetComponent<Player>().CheckPath(_player.transform);
+            _player.GetComponent<Player>().CheckPath();
             
             Destroy(gameObject);
         }
@@ -84,18 +84,18 @@ namespace SphereWarrior
                     _obstacles.Add(infectableObject);
             }
         }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.DrawWireSphere(transform.position, _findRadius);
-        }
-
+        
         private void InfectAll()
         {
             foreach (IInfectable obstacle in _obstacles)
             {
                 obstacle.Infect();
             }
+        }
+        
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawWireSphere(transform.position, _findRadius);
         }
     }
 }

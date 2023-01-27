@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using UnityEngine;
 using SphereWarrior.Managers;
 using SphereWarrior.CalculateAreaFormulas;
@@ -8,6 +8,7 @@ namespace SphereWarrior
     public class Player : MonoBehaviour
     {
         [SerializeField] private float _minimumSize;
+        
         [SerializeField] private Transform _projectileSpawnPosition;
         [SerializeField] private float _projectileSpeed;
 
@@ -58,9 +59,9 @@ namespace SphereWarrior
             }
         }
         
-        public void CheckPath(Transform characteristics)
+        public void CheckPath()
         {
-            if (Physics.BoxCast(characteristics.position, characteristics.localScale, Vector3.forward, out RaycastHit hitObject, Quaternion.identity, Mathf.Infinity))
+            if (Physics.BoxCast(transform.position, transform.localScale, Vector3.forward, out RaycastHit hitObject, Quaternion.identity, Mathf.Infinity, LayerMask.NameToLayer("Target")))
             {
                 if (hitObject.collider.gameObject.CompareTag("Finish"))
                 {
@@ -68,6 +69,5 @@ namespace SphereWarrior
                 }
             }
         }
-        
     }
 }
