@@ -68,7 +68,8 @@ namespace SphereWarrior
             
             TapManager.OnTapHold -= Increase;
             TapManager.OnTapReleased -= SetVelocity;
-            
+
+            GetComponent<SphereCollider>().enabled = false;
             _player.GetComponent<Player>().CheckPath();
             
             Destroy(gameObject);
