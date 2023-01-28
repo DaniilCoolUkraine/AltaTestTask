@@ -24,7 +24,7 @@ namespace SphereWarrior.Managers
                     OnTapReleased?.Invoke();
 
                 if (touch.phase == TouchPhase.Stationary)
-                    OnTapHold?.Invoke(_sizePerFrame);
+                    OnTapHold?.Invoke(_sizePerFrame * Time.deltaTime);
             }
         }
 
