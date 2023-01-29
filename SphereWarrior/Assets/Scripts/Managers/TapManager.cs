@@ -30,6 +30,8 @@ namespace SphereWarrior.Managers
 
         private void OnDisable()
         {
+            OnTapReleased?.Invoke();
+            
             OnTap = null;
             OnTapReleased = null;
             OnTapHold = null;
